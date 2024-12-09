@@ -61,3 +61,30 @@ func TestCountEmojiRunes(t *testing.T) {
 		t.Error("Expected CountEmojiRunes to return 2 for '❤️'")
 	}
 }
+
+func TestRemoveEmojiSize(t *testing.T) {
+	// Emoji of rune size 1 should be removed, when 1 is provided.
+	if FilterEmojisBySize("Hello, 😊", 1) != "Hello, " {
+		t.Error("Expected RemoveEmojiSize to return 'Hello, ' for 'Hello, 😊'")
+	}
+
+	// Emoji of rune size 1 should be persisted, when 2 is provided.
+	if FilterEmojisBySize("Hello, 😊", 2) != "Hello, 😊" {
+		t.Error("Expected RemoveEmojiSize to return 'Hello, 😊' for 'Hello, 😊'")
+	}
+
+	// Functions with multiple emojis.
+	if FilterEmojisBySize("Hello, 😊👍", 1) != "Hello, " {
+		t.Error("Expected RemoveEmojiSize to return 'Hello, ' for 'Hello, 😊👍'")
+	}
+
+	// Functions with multiple emojis, where some emojis are persisted, some aren't
+	if FilterEmojisBySize("Hello, 😊❤️", 2) != "Hello, 😊" {
+		t.Error("Expected RemoveEmojiSize to return 'Hello, 😊' for 'Hello, 😊❤️'")
+	}
+
+	// Functions with 2 rune emoji.
+	if FilterEmojisBySize("Hello, ❤️", 1) != "Hello, " {
+		t.Error("Expected RemoveEmojiSize to return 'Hello, ' for 'Hello, ❤️'")
+	}
+}

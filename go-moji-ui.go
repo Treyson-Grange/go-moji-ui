@@ -20,12 +20,34 @@ func RemoveEmoji(text string) string {
 	return emojiRegex.ReplaceAllString(text, "")
 }
 
+// Removes emojis that are larger or equal to the number of runes provided.
+func FilterEmojisBySize(text string, runes int) string {
+	count := CountEmojiRunes(text)
+
+	var result string
+	graphemes := uniseg.NewGraphemes(text)
+
+	for graphemes.Next() {
+		cluster := graphemes.Str()
+
+		if emojiRegex.MatchString(cluster) {
+			if size, exists := count[cluster]; exists && size >= runes {
+				continue
+			}
+		}
+
+		result += cluster
+	}
+
+	return result
+}
+
 // CountEmojiRunes counts the number of runes for each emoji in a string. Returns a map of emoji to rune count.
 func CountEmojiRunes(text string) map[string]int {
 	results := make(map[string]int)
 	graphemes := uniseg.NewGraphemes(text)
 
-	for graphemes.Next() { // Iterate over each grapheme in the string.
+	for graphemes.Next() {
 		cluster := graphemes.Str()
 		if emojiRegex.MatchString(cluster) {
 			results[cluster] = utf8.RuneCountInString(cluster)

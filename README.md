@@ -13,6 +13,7 @@ This was created for [JukeTUI](https://github.com/Treyson-Grange/JukeTUI), but c
 -   Emoji Detection: Identify the presence of emojis in a string via regex
 -   Emoji Removal: Strip emojis from a given string via regex
 -   Emoji Rune Count: Issues arise when emojis are 2+ runes. If we can account for the runes in each emoji, we can account for these spacing issues.
+-   Emoji Size Based Removal: Remove all emojis that have n or more runes based on a requested size (n).
 
 ## Installation
 
@@ -38,5 +39,8 @@ func main() {
 
     text = "grapheme cluster moji! 👨‍👩‍👧‍👦"
     fmt.Println(moji.CountEmojiRunes(text)) // Prints: map[👨‍👩‍👧‍👦:7]
+
+    text = "remove me: ❤️ Don't remove me: 😊"
+    fmt.Println(moji.FilterEmojisBySize(text, 2)) // Prints: remove me:  Don't remove me: 😊
 }
 ```
