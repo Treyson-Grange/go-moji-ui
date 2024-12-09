@@ -1,0 +1,27 @@
+# Go binary files
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Go object files
+*.o
+*.a
+
+# Vendor directory
+vendor/
+
+# IDE or editor folders
+.idea/
+.vscode/
+*.swp
+
+# macOS specific files
+.DS_Store
+
+# Windows specific files
+Thumbs.db
+
+# Log files
+*.log
