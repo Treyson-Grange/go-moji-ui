@@ -39,7 +39,6 @@ func TestRemoveEmoji(t *testing.T) {
 	}
 }
 
-
 func TestCountEmojiRunes(t *testing.T) {
 	// Test with basic emoji.
 	if CountEmojiRunes("Hello, 😊")["😊"] != 1 {

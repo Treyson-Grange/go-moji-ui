@@ -25,7 +25,7 @@ func CountEmojiRunes(text string) map[string]int {
 	results := make(map[string]int)
 	graphemes := uniseg.NewGraphemes(text)
 
-	for graphemes.Next() {// Iterate over each grapheme in the string.
+	for graphemes.Next() { // Iterate over each grapheme in the string.
 		cluster := graphemes.Str()
 		if emojiRegex.MatchString(cluster) {
 			results[cluster] = utf8.RuneCountInString(cluster)
