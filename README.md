@@ -1,6 +1,6 @@
 # go-moji-ui
 
-[![Report Card](https://goreportcard.com/badge/github.com/Treyson-Grange/go-moji-ui?style=flat-square&label=Go%20Report)](https://goreportcard.com/report/github.com/treyson-grange/JukeTUI)
+[![Report Card](https://goreportcard.com/badge/github.com/Treyson-Grange/go-moji-ui?style=flat-square&label=Go%20Report)](https://goreportcard.com/report/github.com/treyson-grange/go-moji-ui)
 
 A Golang library that provides functions to detect, remove, and count emojis in a string, including those composed of multiple runes.
 
