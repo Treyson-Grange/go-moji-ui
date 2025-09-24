@@ -10,10 +10,10 @@ This was created for [JukeTUI](https://github.com/Treyson-Grange/JukeTUI), but c
 
 ## Library Features
 
--   Emoji Detection: Identify the presence of emojis in a string via regex
--   Emoji Removal: Strip emojis from a given string via regex
--   Emoji Rune Count: Issues arise when emojis are 2+ runes. If we can account for the runes in each emoji, we can account for these spacing issues.
--   Emoji Size Based Removal: Remove all emojis that have n or more runes based on a requested size (n).
+- Emoji Detection: Identify the presence of emojis in a string via regex
+- Emoji Removal: Strip emojis from a given string via regex
+- Emoji Rune Count: Issues arise when emojis are 2+ runes. If we can account for the runes in each emoji, we can account for these spacing issues.
+- Emoji Size Based Removal: Remove all emojis that have n or more runes based on a requested size (n).
 
 ## Installation
 
@@ -27,20 +27,36 @@ go get github.com/Treyson-Grange/go-moji-ui
 
 ```go
 import (
+    "fmt"
     moji "github.com/Treyson-Grange/go-moji-ui"
 )
 
 func main() {
+    // Basic emoji detection
     text := "Hello, World! 😊"
     fmt.Println(moji.ContainsEmoji(text)) // Prints: true
 
+    // Remove all emojis
     text = "No Mojis! 🤓🤓🤓🤓🤓🤓🤓🤓🤓"
-    fmt.Println(moji.RemoveEmoji(text)) // Prints: No Mojis!
+    fmt.Println(moji.RemoveEmoji(text)) // Prints: "No Mojis! "
 
-    text = "grapheme cluster moji! 👨‍👩‍👧‍👦"
-    fmt.Println(moji.CountEmojiRunes(text)) // Prints: map[👨‍👩‍👧‍👦:7]
+    // Count runes in complex emojis (grapheme clusters)
+    text = "Mixed emojis: � �👨‍👩‍👧‍👦 ❤️"
+    runeCount := moji.CountEmojiRunes(text)
+    fmt.Printf("Emoji rune counts: %v\n", runeCount)
+    // Prints: Emoji rune counts: map[😊:1 👨‍👩‍👧‍👦:7 ❤️:2]
 
-    text = "remove me: ❤️ Don't remove me: 😊"
-    fmt.Println(moji.FilterEmojisBySize(text, 2)) // Prints: remove me:  Don't remove me: 😊
+    for emoji, count := range runeCount {
+        fmt.Printf("'%s' uses %d runes\n", emoji, count)
+    }
+    // Prints:
+    // '😊' uses 1 rune
+    // '👨‍👩‍👧‍👦' uses 7 runes (family: man, woman, girl, boy)
+    // '❤️' uses 2 runes (heart + variation selector)
+
+    // Filter out emojis with 2 or more runes
+    text = "Keep simple: 😊 Remove complex: ❤️ and families: 👨‍👩‍👧‍�"
+    fmt.Println(moji.FilterEmojisBySize(text, 2))
+    // Prints: "Keep simple: 😊 Remove complex:  and families: "
 }
 ```
