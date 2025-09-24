@@ -41,7 +41,7 @@ func main() {
     fmt.Println(moji.RemoveEmoji(text)) // Prints: "No Mojis! "
 
     // Count runes in complex emojis (grapheme clusters)
-    text = "Mixed emojis: � �👨‍👩‍👧‍👦 ❤️"
+    text = "Mixed emojis: 😊 👨‍👩‍👧‍👦 ❤️"
     runeCount := moji.CountEmojiRunes(text)
     fmt.Printf("Emoji rune counts: %v\n", runeCount)
     // Prints: Emoji rune counts: map[😊:1 👨‍👩‍👧‍👦:7 ❤️:2]
